@@ -239,7 +239,8 @@
     start.addEventListener('click', async () => {
       start.hidden = true;
       try {
-        if (shell.requestFullscreen) await shell.requestFullscreen();
+        // Firefox renders the game's WebGL scene black after fullscreen, so it keeps the window instead.
+        if (shell.requestFullscreen && !/firefox/i.test(navigator.userAgent)) await shell.requestFullscreen();
       } catch (error) {
         console.warn('Fullscreen unavailable:', error);
       }
